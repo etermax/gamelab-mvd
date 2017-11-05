@@ -26,37 +26,37 @@ public class BackgroundPropSpawner : MonoBehaviour
 	IEnumerator Spawn ()
 	{
 		// Create a random wait time before the prop is instantiated.
-		float waitTime = Random.Range(minTimeBetweenSpawns, maxTimeBetweenSpawns);
+		var waitTime = Random.Range(minTimeBetweenSpawns, maxTimeBetweenSpawns);
 
 		// Wait for the designated period.
 		yield return new WaitForSeconds(waitTime);
 
 		// Randomly decide whether the prop should face left or right.
-		bool facingLeft = Random.Range(0,2) == 0;
+		var facingLeft = Random.Range(0,2) == 0;
 
 		// If the prop is facing left, it should start on the right hand side, otherwise it should start on the left.
-		float posX = facingLeft ? rightSpawnPosX : leftSpawnPosX;
+		var posX = facingLeft ? rightSpawnPosX : leftSpawnPosX;
 
 		// Create a random y coordinate for the prop.
-		float posY = Random.Range(minSpawnPosY, maxSpawnPosY);
+		var posY = Random.Range(minSpawnPosY, maxSpawnPosY);
 
 		// Set the position the prop should spawn at.
-		Vector3 spawnPos = new Vector3(posX, posY, transform.position.z);
+		var spawnPos = new Vector3(posX, posY, transform.position.z);
 
 		// Instantiate the prop at the desired position.
-		Rigidbody2D propInstance = Instantiate(backgroundProp, spawnPos, Quaternion.identity) as Rigidbody2D;
+		var propInstance = Instantiate(backgroundProp, spawnPos, Quaternion.identity) as Rigidbody2D;
 
 		// The sprites for the props all face left.  Therefore, if the prop should be facing right...
 		if(!facingLeft)
 		{
 			// ... flip the scale in the x axis.
-			Vector3 scale = propInstance.transform.localScale;
+			var scale = propInstance.transform.localScale;
 			scale.x *= -1;
 			propInstance.transform.localScale = scale;
 		}
 
 		// Create a random speed.
-		float speed = Random.Range(minSpeed, maxSpeed);
+		var speed = Random.Range(minSpeed, maxSpeed);
 
 		// These speeds would naturally move the prop right, so if it's facing left, multiply the speed by -1.
 		speed *= facingLeft ? -1f : 1f;
@@ -68,7 +68,7 @@ public class BackgroundPropSpawner : MonoBehaviour
 		StartCoroutine(Spawn());
 
 		// While the prop exists...
-		while(propInstance != null)
+		while(true)
 		{
 			// ... and if it's facing left...
 			if(facingLeft)
