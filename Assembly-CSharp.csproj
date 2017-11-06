@@ -61,8 +61,6 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Factory\GameViewFactory.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
-    <Compile Include="Assets\Scripts\Game\Events\GameEvent.cs" />
-    <Compile Include="Assets\Scripts\Game\Events\RocketImpactsEnemy.cs" />
     <Compile Include="Assets\Scripts\Game\GameController.cs" />
     <Compile Include="Assets\Scripts\Game\GamePresenter.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
@@ -99,12 +97,6 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>/Applications/Unity-2017.1/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{838FA2D6-3593-D3F2-D2C5-5CCB884A2A14}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

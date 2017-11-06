@@ -10,6 +10,7 @@ public interface IEnemy
 	int GetHealth();
 	void SetDamagedState();
 	bool IsStrongEnemy();
+	bool IsDeath();
 }
 
 public class Enemy : MonoBehaviour, IEnemy
@@ -73,6 +74,11 @@ public class Enemy : MonoBehaviour, IEnemy
 		return damagedEnemy != null;
 	}
 
+	public bool IsDeath()
+	{
+		return dead;
+	}
+
 	public void Death()
 	{
 		DisableSpriteRenders();
@@ -93,27 +99,19 @@ public class Enemy : MonoBehaviour, IEnemy
 
 	private void PlayADeathSound()
 	{
-		// Play a random audioclip from the deathClips array.
-		int i = Random.Range(0, deathClips.Length);
+		var i = Random.Range(0, deathClips.Length);
 		AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
 	}
 
 	private void MakeMeTriggerWithEverithing()
 	{
-		// Allow the enemy to rotate and spin it by adding a torque.
 		GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
-
-		// Find all of the colliders on the gameobject and set them all to be triggers.
-		Collider2D[] cols = GetComponents<Collider2D>();
-		foreach (Collider2D c in cols)
-		{
-			c.isTrigger = true;
-		}
+		var cols = GetComponents<Collider2D>();
+		foreach (var c in cols) c.isTrigger = true;
 	}
 
 	private void SetDeathSprite()
 	{
-		// Re-enable the main sprite renderer and set it's sprite to the deadEnemy sprite.
 		ren.enabled = true;
 		ren.sprite = deadEnemy;
 	}

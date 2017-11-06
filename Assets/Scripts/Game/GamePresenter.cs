@@ -17,7 +17,7 @@ namespace DefaultNamespace
             enemy.Hurt();
             if (enemy.IsStrongEnemy() && enemy.GetHealth() > 0)
                 enemy.SetDamagedState();
-            if (enemy.GetHealth() <= 0)
+            if (!enemy.IsDeath() && enemy.GetHealth() <= 0)
             {
                 enemy.Death();
                 IncrementPoints(PointsByEnemy);
