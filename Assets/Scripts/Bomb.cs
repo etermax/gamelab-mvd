@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bomb : MonoBehaviour
+public interface IBomb
+{
+	void Explode();
+}
+
+public class Bomb : MonoBehaviour, IBomb
 {
 	public float bombRadius = 10f;			// Radius within which enemies are killed.
 	public float bombForce = 100f;			// Force that enemies are thrown from the blast.
@@ -92,3 +97,5 @@ public class Bomb : MonoBehaviour
 		Destroy (gameObject);
 	}
 }
+
+
