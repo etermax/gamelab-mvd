@@ -28,5 +28,10 @@ namespace DefaultNamespace
         {
             gamePresenter.OnRocketImpactsWithSomethingElse(rocket);
         }
+
+        public void OnEnemyHitsWithObstacle(Enemy enemy)
+        {
+            gamePresenter.OnEnemyHitsWithObstacle(enemy);
+        }
     }
 }

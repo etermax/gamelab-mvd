@@ -11,7 +11,9 @@ namespace DefaultNamespace
         public void OnRocketImpactsEnemy(IRocket rocket, IEnemy enemy)
         {
             enemy.Hurt();
-            if (enemy.GetHealth() < 0)
+            if (enemy.IsStrongEnemy() && enemy.GetHealth() > 0)
+                enemy.SetDamagedState();
+            if (enemy.GetHealth() <= 0)
                 enemy.Death();
             rocket.Explode();
         }
@@ -25,6 +27,11 @@ namespace DefaultNamespace
         public void OnRocketImpactsWithSomethingElse(IRocket rocket)
         {
             rocket.Explode();
+        }
+
+        public void OnEnemyHitsWithObstacle(IEnemy enemy)
+        {
+            enemy.Flip();
         }
     }
 }

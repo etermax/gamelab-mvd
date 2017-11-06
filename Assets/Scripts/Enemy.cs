@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using DefaultNamespace;
 
 public interface IEnemy
 {
@@ -7,6 +9,8 @@ public interface IEnemy
 	void Death();
 	void Flip();
 	int GetHealth();
+	void SetDamagedState();
+	bool IsStrongEnemy();
 }
 
 public class Enemy : MonoBehaviour, IEnemy
@@ -26,6 +30,8 @@ public class Enemy : MonoBehaviour, IEnemy
 	private bool dead = false;			// Whether or not the enemy is dead.
 	private Score score;				// Reference to the Score script.
 
+	private GameController gameCotroller;
+
 	
 	void Awake()
 	{
@@ -33,94 +39,105 @@ public class Enemy : MonoBehaviour, IEnemy
 		ren = transform.Find("body").GetComponent<SpriteRenderer>();
 		frontCheck = transform.Find("frontCheck").transform;
 		score = GameObject.Find("Score").GetComponent<Score>();
+		gameCotroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 	}
 
 	void FixedUpdate ()
 	{
-		// Create an array of all the colliders in front of the enemy.
-		Collider2D[] frontHits = Physics2D.OverlapPointAll(frontCheck.position, 1);
-
-		// Check each of the colliders.
-		foreach(Collider2D c in frontHits)
-		{
-			// If any of the colliders is an Obstacle...
-			if(c.tag == "Obstacle")
-			{
-				// ... Flip the enemy and stop checking the other colliders.
-				Flip ();
-				break;
-			}
-		}
-
-		// Set the enemy's velocity to moveSpeed in the x direction.
-		GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);	
-
-		// If the enemy has one hit point left and has a damagedEnemy sprite...
-		if(HP == 1 && damagedEnemy != null)
-			// ... set the sprite renderer's sprite to be the damagedEnemy sprite.
-			ren.sprite = damagedEnemy;
-			
-		// If the enemy has zero or fewer hit points and isn't dead yet...
-		if(HP <= 0 && !dead)
-			// ... call the death function.
-			Death ();
+		CheckObstacleHits();
+		UpdateSpeedMovement();	
+//
+//		// If the enemy has zero or fewer hit points and isn't dead yet...
+//		if(HP <= 0 && !dead)
+//			// ... call the death function.
+//			Death ();
 	}
-	
+
+	private void UpdateSpeedMovement()
+	{
+		GetComponent<Rigidbody2D>().velocity =
+			new Vector2(transform.localScale.x * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+	}
+
+	private void CheckObstacleHits()
+	{
+		var frontHits = Physics2D.OverlapPointAll(frontCheck.position, 1);
+
+		if (frontHits.Any(c => c.CompareTag("Obstacle")))
+			gameCotroller.OnEnemyHitsWithObstacle(this);
+	}
+
 	public void Hurt()
 	{
-		// Reduce the number of hit points by one.
 		HP--;
+	}
+
+	public void SetDamagedState()
+	{
+		ren.sprite = damagedEnemy;
+	}
+
+	public bool IsStrongEnemy()
+	{
+		return damagedEnemy != null;
 	}
 
 	public void Death()
 	{
-		// Find all of the sprite renderers on this object and it's children.
-		SpriteRenderer[] otherRenderers = GetComponentsInChildren<SpriteRenderer>();
-
-		// Disable all of them sprite renderers.
-		foreach(SpriteRenderer s in otherRenderers)
-		{
-			s.enabled = false;
-		}
-
-		// Re-enable the main sprite renderer and set it's sprite to the deadEnemy sprite.
-		ren.enabled = true;
-		ren.sprite = deadEnemy;
-
-		// Increase the score by 100 points
-		score.score += 100;
-
-		// Set dead to true.
+		DisableSpriteRenders();
+		SetDeathSprite();
+		score.score += 100; // TODO: Remove me from here
 		dead = true;
+		MakeMeTriggerWithEverithing();
+		PlayADeathSound();
+		DrawPointsScore();
+	}
 
-		// Allow the enemy to rotate and spin it by adding a torque.
-		GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin,deathSpinMax));
-
-		// Find all of the colliders on the gameobject and set them all to be triggers.
-		Collider2D[] cols = GetComponents<Collider2D>();
-		foreach(Collider2D c in cols)
-		{
-			c.isTrigger = true;
-		}
-
-		// Play a random audioclip from the deathClips array.
-		int i = Random.Range(0, deathClips.Length);
-		AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
-
-		// Create a vector that is just above the enemy.
+	private void DrawPointsScore()
+	{
 		Vector3 scorePos;
 		scorePos = transform.position;
 		scorePos.y += 1.5f;
-
-		// Instantiate the 100 points prefab at this point.
 		Instantiate(hundredPointsUI, scorePos, Quaternion.identity);
+	}
+
+	private void PlayADeathSound()
+	{
+		// Play a random audioclip from the deathClips array.
+		int i = Random.Range(0, deathClips.Length);
+		AudioSource.PlayClipAtPoint(deathClips[i], transform.position);
+	}
+
+	private void MakeMeTriggerWithEverithing()
+	{
+		// Allow the enemy to rotate and spin it by adding a torque.
+		GetComponent<Rigidbody2D>().AddTorque(Random.Range(deathSpinMin, deathSpinMax));
+
+		// Find all of the colliders on the gameobject and set them all to be triggers.
+		Collider2D[] cols = GetComponents<Collider2D>();
+		foreach (Collider2D c in cols)
+		{
+			c.isTrigger = true;
+		}
+	}
+
+	private void SetDeathSprite()
+	{
+		// Re-enable the main sprite renderer and set it's sprite to the deadEnemy sprite.
+		ren.enabled = true;
+		ren.sprite = deadEnemy;
+	}
+
+	private void DisableSpriteRenders()
+	{
+		var otherRenderers = GetComponentsInChildren<SpriteRenderer>();
+		foreach (var s in otherRenderers) s.enabled = false;
 	}
 
 
 	public void Flip()
 	{
-		// Multiply the x component of localScale by -1.
-		Vector3 enemyScale = transform.localScale;
+		var enemyScale = transform.localScale;
 		enemyScale.x *= -1;
 		transform.localScale = enemyScale;
 	}
