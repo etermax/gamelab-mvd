@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public interface IEnemy
+{
+	void Hurt();
+	void Death();
+	void Flip();
+	int GetHealth();
+}
+
+public class Enemy : MonoBehaviour, IEnemy
 {
 	public float moveSpeed = 2f;		// The speed the enemy moves at.
 	public int HP = 2;					// How many times the enemy can be hit before it dies.
@@ -63,8 +71,8 @@ public class Enemy : MonoBehaviour
 		// Reduce the number of hit points by one.
 		HP--;
 	}
-	
-	void Death()
+
+	public void Death()
 	{
 		// Find all of the sprite renderers on this object and it's children.
 		SpriteRenderer[] otherRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -115,5 +123,10 @@ public class Enemy : MonoBehaviour
 		Vector3 enemyScale = transform.localScale;
 		enemyScale.x *= -1;
 		transform.localScale = enemyScale;
+	}
+
+	public int GetHealth()
+	{
+		return HP;
 	}
 }
