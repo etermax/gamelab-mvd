@@ -23,39 +23,24 @@ public class Rocket : MonoBehaviour, IRocket
 	}
 
 
-	void DoExplode()
+	private void DoExplode()
 	{
 		var randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
 		Instantiate(explosion, transform.position, randomRotation);
 	}
-	
-	void OnTriggerEnter2D (Collider2D col) 
+
+	private void OnTriggerEnter2D (Collider2D col) 
 	{
-		if(col.tag == "Enemy")
-		{
+		if(col.CompareTag("Enemy"))
 			gameCotroller.OnRocketImpactsEnemy(this, col.gameObject.GetComponent<Enemy>());
-		}
-		// Otherwise if it hits a bomb crate...
-		else if(col.tag == "BombPickup")
-		{
-			gameCotroller.OnRocketImpactsHealtPack(this, col.gameObject.GetComponent<Bomb>());
-			
-			
-			// ... find the Bomb script and call the Explode function.
-			col.gameObject.GetComponent<Bomb>().Explode();
-
-			// Destroy the bomb crate.
-			Destroy (col.transform.root.gameObject);
-
-			// Destroy the rocket.
-			Destroy (gameObject);
-		}
+		
+		else if(col.CompareTag("BombPickup"))
+			gameCotroller.OnRocketImpactsBomb(this, col.gameObject.GetComponent<Bomb>());
+		
 		// Otherwise if the player manages to shoot himself...
-		else if(col.gameObject.tag != "Player")
+		else if(!col.gameObject.CompareTag("Player"))
 		{
-			// Instantiate the explosion and destroy the rocket.
-			DoExplode();
-			Destroy (gameObject);
+			gameCotroller.OnRocketImpactsWithSomethingElse(this);
 		}
 	}
 

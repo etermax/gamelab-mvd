@@ -15,5 +15,16 @@ namespace DefaultNamespace
                 enemy.Death();
             rocket.Explode();
         }
+
+        public void OnRocketImpactsHealtPack(IRocket rocket, IBomb bomb)
+        {
+            bomb.Explode();
+            rocket.Explode();
+        }
+
+        public void OnRocketImpactsWithSomethingElse(IRocket rocket)
+        {
+            rocket.Explode();
+        }
     }
 }

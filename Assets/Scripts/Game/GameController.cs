@@ -12,15 +12,21 @@ namespace DefaultNamespace
             gamePresenter = GameViewFactory.GetGamePresenter();
         }
 
-        public void OnRocketImpactsEnemy(IRocket rocket, IEnemy getComponent)
+        public void OnRocketImpactsEnemy(Rocket rocket, Enemy enemy)
         {
-            gamePresenter.OnRocketImpactsEnemy(rocket, getComponent);
+            gamePresenter.OnRocketImpactsEnemy(rocket, enemy);
             Debug.Log("OnRocketImpactsEnemy");
         }
 
-        public void OnRocketImpactsHealtPack(Rocket rocket, Bomb getComponent)
+        public void OnRocketImpactsBomb(Rocket rocket, Bomb bomb)
         {
-            throw new System.NotImplementedException();
+            gamePresenter.OnRocketImpactsHealtPack(rocket, bomb);
+            Debug.Log("OnRocketImpactsHealtPack");
+        }
+
+        public void OnRocketImpactsWithSomethingElse(Rocket rocket)
+        {
+            gamePresenter.OnRocketImpactsWithSomethingElse(rocket);
         }
     }
 }

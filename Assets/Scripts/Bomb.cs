@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface IBomb
 {
-	
+	void Explode();
 }
 
 public class Bomb : MonoBehaviour, IBomb
