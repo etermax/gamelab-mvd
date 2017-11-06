@@ -52,29 +52,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Bomb.cs" />
-    <Compile Include="Assets\Scripts\BombPickup.cs" />
-    <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Destroyer.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\FollowPlayer.cs" />
-    <Compile Include="Assets\Scripts\Gun.cs" />
-    <Compile Include="Assets\Scripts\HealthPickup.cs" />
-    <Compile Include="Assets\Scripts\LayBombs.cs" />
-    <Compile Include="Assets\Scripts\Pauser.cs" />
-    <Compile Include="Assets\Scripts\PickupSpawner.cs" />
-    <Compile Include="Assets\Scripts\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
-    <Compile Include="Assets\Scripts\Remover.cs" />
-    <Compile Include="Assets\Scripts\Rocket.cs" />
-    <Compile Include="Assets\Scripts\Scenario\Presenters\BackgroundParallaxPresenter.cs" />
-    <Compile Include="Assets\Scripts\Scenario\View\BackgroundParallax.cs" />
-    <Compile Include="Assets\Scripts\Scenario\View\BackgroundParallaxView.cs" />
-    <Compile Include="Assets\Scripts\Scenario\View\BackgroundPropSpawner.cs" />
-    <Compile Include="Assets\Scripts\Score.cs" />
-    <Compile Include="Assets\Scripts\ScoreShadow.cs" />
-    <Compile Include="Assets\Scripts\SetParticleSortingLayer.cs" />
-    <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Bomb.cs" />
+    <Compile Include="Assets\Scripts\Presentation\BombPickup.cs" />
+    <Compile Include="Assets\Scripts\Presentation\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Destroyer.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Presentation\FollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Gun.cs" />
+    <Compile Include="Assets\Scripts\Presentation\HealthPickup.cs" />
+    <Compile Include="Assets\Scripts\Presentation\LayBombs.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Pauser.cs" />
+    <Compile Include="Assets\Scripts\Presentation\PickupSpawner.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\Presenter\HealthPresenter.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\Presenter\PlayerControlPresenter.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\View\HealthView.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\View\PlayerControl.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\View\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Player\View\PlayerView.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Remover.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Rocket.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Scenario\Presenters\BackgroundParallaxPresenter.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Scenario\View\BackgroundParallax.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Scenario\View\BackgroundParallaxView.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Scenario\View\BackgroundPropSpawner.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Score.cs" />
+    <Compile Include="Assets\Scripts\Presentation\ScoreShadow.cs" />
+    <Compile Include="Assets\Scripts\Presentation\SetParticleSortingLayer.cs" />
+    <Compile Include="Assets\Scripts\Presentation\Spawner.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
