@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Linq;
 using DefaultNamespace;
 
@@ -28,17 +27,14 @@ public class Enemy : MonoBehaviour, IEnemy
 	private SpriteRenderer ren;			// Reference to the sprite renderer.
 	private Transform frontCheck;		// Reference to the position of the gameobject used for checking if something is in front.
 	private bool dead = false;			// Whether or not the enemy is dead.
-	private Score score;				// Reference to the Score script.
 
 	private GameController gameCotroller;
 
 	
 	void Awake()
 	{
-		// Setting up the references.
 		ren = transform.Find("body").GetComponent<SpriteRenderer>();
 		frontCheck = transform.Find("frontCheck").transform;
-		score = GameObject.Find("Score").GetComponent<Score>();
 		gameCotroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 	}
 
@@ -46,11 +42,6 @@ public class Enemy : MonoBehaviour, IEnemy
 	{
 		CheckObstacleHits();
 		UpdateSpeedMovement();	
-//
-//		// If the enemy has zero or fewer hit points and isn't dead yet...
-//		if(HP <= 0 && !dead)
-//			// ... call the death function.
-//			Death ();
 	}
 
 	private void UpdateSpeedMovement()
@@ -86,7 +77,6 @@ public class Enemy : MonoBehaviour, IEnemy
 	{
 		DisableSpriteRenders();
 		SetDeathSprite();
-		score.score += 100; // TODO: Remove me from here
 		dead = true;
 		MakeMeTriggerWithEverithing();
 		PlayADeathSound();

@@ -3,9 +3,13 @@ namespace DefaultNamespace
 {
     public class GamePresenter
     {
-        public GamePresenter()
+        private readonly GameView gameView;
+        private const int PointsByEnemy = 100;
+        private int score;
+
+        public GamePresenter(GameView gameView)
         {
-            
+            this.gameView = gameView;
         }
 
         public void OnRocketImpactsEnemy(IRocket rocket, IEnemy enemy)
@@ -14,8 +18,18 @@ namespace DefaultNamespace
             if (enemy.IsStrongEnemy() && enemy.GetHealth() > 0)
                 enemy.SetDamagedState();
             if (enemy.GetHealth() <= 0)
+            {
                 enemy.Death();
+                IncrementPoints(PointsByEnemy);
+            }
+                
             rocket.Explode();
+        }
+
+        private void IncrementPoints(int pointsByEnemy)
+        {
+            score += pointsByEnemy;
+            gameView.UpdateScore(score);
         }
 
         public void OnRocketImpactsHealtPack(IRocket rocket, IBomb bomb)

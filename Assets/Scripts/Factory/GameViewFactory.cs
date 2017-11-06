@@ -4,9 +4,9 @@ namespace Factory
 {
     public class GameViewFactory
     {
-        public static GamePresenter GetGamePresenter()
+        public static GamePresenter GetGamePresenter(GameView gameView)
         {
-            return new GamePresenter();
+            return new GamePresenter(gameView);
         }
     }
 }
