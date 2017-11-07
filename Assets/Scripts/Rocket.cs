@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using DefaultNamespace;
+﻿using Game;
+using UnityEngine;
 
 public interface IRocket
 {

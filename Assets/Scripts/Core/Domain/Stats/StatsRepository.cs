@@ -1,8 +1,10 @@
-﻿namespace Core.Domain.Score
+﻿using Core.Domain.Stats;
+
+namespace Core.Domain.Score
 {
     public interface StatsRepository
     {
-        void Put(Stats.Stats stats);
-        Stats.Stats Get();
+        void Put(PlayerScore playerScore);
+        PlayerScore Get();
     }
 }

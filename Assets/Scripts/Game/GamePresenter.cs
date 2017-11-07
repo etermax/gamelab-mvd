@@ -1,15 +1,19 @@
 ﻿
-namespace DefaultNamespace
+using Core.Domain.Actions;
+
+namespace Game
 {
     public class GamePresenter
     {
         private readonly GameView gameView;
+        private readonly SaveScore saveScore;
         private const int PointsByEnemy = 100;
         private int score;
 
-        public GamePresenter(GameView gameView)
+        public GamePresenter(GameView gameView, SaveScore saveScore)
         {
             this.gameView = gameView;
+            this.saveScore = saveScore;
         }
 
         public void OnRocketImpactsEnemy(IRocket rocket, IEnemy enemy)
@@ -29,6 +33,7 @@ namespace DefaultNamespace
         private void IncrementPoints(int pointsByEnemy)
         {
             score += pointsByEnemy;
+            saveScore.Execute(score);
             gameView.UpdateScore(score);
         }
 

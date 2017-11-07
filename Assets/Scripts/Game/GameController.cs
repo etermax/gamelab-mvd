@@ -1,7 +1,7 @@
 ﻿using Factory;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Game
 {
 
     public interface GameView

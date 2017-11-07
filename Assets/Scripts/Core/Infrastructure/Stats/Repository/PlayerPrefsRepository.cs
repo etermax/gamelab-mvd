@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Core.Infrastructure.Score.Repository
 {
-    public class PlayerPreferencesRepository : StatsRepository
+    public class PlayerPrefsRepository : StatsRepository
     {
-        public void Put(Stats stats)
+        public void Put(PlayerScore score)
         {
-            PlayerPrefs.SetInt(Stats.ScoreKey, stats.Score);
+            PlayerPrefs.SetInt(PlayerScore.ScoreKey, score.InternalScore);
         }
 
-        public Stats Get()
+        public PlayerScore Get()
         {
-            return new Stats(PlayerPrefs.GetInt(Stats.ScoreKey));
+            return new PlayerScore(PlayerPrefs.GetInt(PlayerScore.ScoreKey));
         }
     }
 }
