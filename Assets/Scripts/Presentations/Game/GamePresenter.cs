@@ -10,6 +10,7 @@ namespace Presentations.Game
         const int PointsByEnemy = 100;
         int score;
         readonly VerifiesHighScoreBeated verifiesHighScoreBeated;
+        private bool beated;
 
         public GamePresenter(GameView gameView,
             SaveScore saveScore,
@@ -29,8 +30,9 @@ namespace Presentations.Game
 
         private void VerifiesBeatHighScore()
         {
-            if (verifiesHighScoreBeated.Execute(score))
+            if (!beated && verifiesHighScoreBeated.Execute(score))
             {
+                beated = true;
                 gameView.ShowHighScoreBeatedMessage();
             }
         }
@@ -63,6 +65,8 @@ namespace Presentations.Game
             score += pointsByEnemy;
             VerifiesBeatHighScore();
             gameView.UpdateScore(score);
+            if (beated)
+                gameView.UpdateHighScore(score);
         }
 
         public void OnRocketImpactsHealtPack(IRocket rocket, IBomb bomb)

@@ -9,6 +9,7 @@ namespace Presentations.Game
         void UpdateScore(int score);
         void UpdatePreviousScore(PlayerScore playerScore);
         void ShowHighScoreBeatedMessage();
+        void UpdateHighScore(int score);
     }
 
     public class GameController : MonoBehaviour, GameView
@@ -59,6 +60,11 @@ namespace Presentations.Game
         public void ShowHighScoreBeatedMessage()
         {
             //TODO: Implement me please!
+        }
+
+        public void UpdateHighScore(int score)
+        {
+            scoreController.highestScore = score;
         }
 
         public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)

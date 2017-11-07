@@ -15,12 +15,12 @@ namespace Presentations
             gameCotroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         }
 
-        void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerEnter2D(Collider2D collider)
         {
             // If the player hits the trigger...
-            if (col.gameObject.CompareTag("Player"))
+            if (collider.gameObject.CompareTag("Player"))
             {    
-                gameCotroller.OnPlayerFalls(col.GetComponent<PlayerControl>());
+                gameCotroller.OnPlayerFalls(collider.GetComponent<PlayerControl>());
                 
                 // .. stop the camera tracking the player
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
@@ -32,17 +32,17 @@ namespace Presentations
                 }
 
                 // ... instantiate the splash where the player falls in.
-                Instantiate(splash, col.transform.position, transform.rotation);
+                Instantiate(splash, collider.transform.position, transform.rotation);
                 // ... reload the level.
                 StartCoroutine("ReloadGame");
             }
             else
             {
                 // ... instantiate the splash where the enemy falls in.
-                Instantiate(splash, col.transform.position, transform.rotation);
+                Instantiate(splash, collider.transform.position, transform.rotation);
 
                 // Destroy the enemy.
-                Destroy(col.gameObject);
+                Destroy(collider.gameObject);
             }
         }
 
