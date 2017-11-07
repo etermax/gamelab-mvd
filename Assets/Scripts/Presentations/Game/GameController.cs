@@ -1,14 +1,16 @@
-﻿using Presentations.Factory;
+﻿using Core.Domain.Stats;
+using Presentations.Factory;
 using UnityEngine;
 
 namespace Presentations.Game
 {
-
     public interface GameView
     {
         void UpdateScore(int score);
+        void UpdatePreviousScore(PlayerScore playerScore);
+        void ShowHighScoreBeatedMessage();
     }
-    
+
     public class GameController : MonoBehaviour, GameView
     {
         public Score scoreController;
@@ -17,6 +19,11 @@ namespace Presentations.Game
         private void Awake()
         {
             gamePresenter = GameViewFactory.GetGamePresenter(this);
+        }
+
+        private void Start()
+        {
+            gamePresenter.OnStart();
         }
 
         public void OnRocketImpactsEnemy(Rocket rocket, Enemy enemy)
@@ -42,6 +49,16 @@ namespace Presentations.Game
         public void UpdateScore(int score)
         {
             scoreController.score = score;
+        }
+
+        public void UpdatePreviousScore(PlayerScore playerScore)
+        {
+            scoreController.highestScore = playerScore.Score;
+        }
+
+        public void ShowHighScoreBeatedMessage()
+        {
+            //TODO: Implement me please!
         }
 
         public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)

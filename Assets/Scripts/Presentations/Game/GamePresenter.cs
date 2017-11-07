@@ -4,15 +4,44 @@ namespace Presentations.Game
 {
     public class GamePresenter
     {
-        private readonly GameView gameView;
-        private readonly SaveScore saveScore;
-        private const int PointsByEnemy = 100;
-        private int score;
+        readonly GameView gameView;
+        readonly SaveScore saveScore;
+        readonly LoadPreviousScore loadPreviousScore;
+        const int PointsByEnemy = 100;
+        int score;
+        readonly VerifiesHighScoreBeated verifiesHighScoreBeated;
 
-        public GamePresenter(GameView gameView, SaveScore saveScore)
+        public GamePresenter(GameView gameView,
+            SaveScore saveScore,
+            LoadPreviousScore loadPreviousScore,
+            VerifiesHighScoreBeated verifiesHighScoreBeated)
         {
             this.gameView = gameView;
             this.saveScore = saveScore;
+            this.loadPreviousScore = loadPreviousScore;
+            this.verifiesHighScoreBeated = verifiesHighScoreBeated;
+        }
+
+        public void OnStart()
+        {
+            LoadPreviousScore();
+        }
+
+        private void VerifiesBeatHighScore()
+        {
+            if (verifiesHighScoreBeated.Execute(score))
+            {
+                gameView.ShowHighScoreBeatedMessage();
+            }
+        }
+
+        private void LoadPreviousScore()
+        {
+            var playerScore = loadPreviousScore.Execute();
+            if (playerScore.Score > 0)
+            {
+                gameView.UpdatePreviousScore(playerScore);
+            }
         }
 
         public void OnRocketImpactsEnemy(IRocket rocket, IEnemy enemy)
@@ -32,6 +61,7 @@ namespace Presentations.Game
         private void IncrementPoints(int pointsByEnemy)
         {
             score += pointsByEnemy;
+            VerifiesBeatHighScore();
             gameView.UpdateScore(score);
         }
 

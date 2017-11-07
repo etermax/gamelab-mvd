@@ -3,11 +3,11 @@
     public class PlayerScore
     {
         public const string ScoreKey = "Score";
-        public int InternalScore { get; private set; }
+        public int Score { get; private set; }
 
         public PlayerScore(int score)
         {
-            InternalScore = score;
+            Score = score;
         }
     }
 }

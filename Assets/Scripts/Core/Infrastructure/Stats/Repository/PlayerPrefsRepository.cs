@@ -8,7 +8,7 @@ namespace Core.Infrastructure.Score.Repository
     {
         public void Put(PlayerScore score)
         {
-            PlayerPrefs.SetInt(PlayerScore.ScoreKey, score.InternalScore);
+            PlayerPrefs.SetInt(PlayerScore.ScoreKey, score.Score);
         }
 
         public PlayerScore Get()

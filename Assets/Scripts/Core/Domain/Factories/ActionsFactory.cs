@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Domain.Factories
 {
-    public partial class ActionsFactory
+    public static partial class ActionsFactory
     {
         static readonly Dictionary<Type, object> instances = new Dictionary<Type, object>();
 
