@@ -1,7 +1,7 @@
-﻿using Factory;
+﻿using Presentations.Factory;
 using UnityEngine;
 
-namespace Game
+namespace Presentations.Game
 {
 
     public interface GameView
@@ -42,6 +42,11 @@ namespace Game
         public void UpdateScore(int score)
         {
             scoreController.score = score;
+        }
+
+        public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)
+        {
+            gamePresenter.OnPlayerEmptyHealth(playerHealth, player);
         }
     }
 }

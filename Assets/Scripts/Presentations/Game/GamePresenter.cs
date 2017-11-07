@@ -1,7 +1,6 @@
-﻿
-using Core.Domain.Actions;
+﻿using Core.Domain.Actions;
 
-namespace Game
+namespace Presentations.Game
 {
     public class GamePresenter
     {
@@ -26,14 +25,13 @@ namespace Game
                 enemy.Death();
                 IncrementPoints(PointsByEnemy);
             }
-                
+
             rocket.Explode();
         }
 
         private void IncrementPoints(int pointsByEnemy)
         {
             score += pointsByEnemy;
-            saveScore.Execute(score);
             gameView.UpdateScore(score);
         }
 
@@ -51,6 +49,13 @@ namespace Game
         public void OnEnemyHitsWithObstacle(IEnemy enemy)
         {
             enemy.Flip();
+        }
+
+        public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)
+        {
+            playerHealth.SetPlayerAsDead();
+            player.DisablePlayer();
+            saveScore.Execute(score);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Core.Domain.Factories;
-using Game;
+using Presentations.Game;
 
-namespace Factory
+namespace Presentations.Factory
 {
     public static class GameViewFactory
     {
