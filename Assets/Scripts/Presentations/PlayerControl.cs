@@ -4,6 +4,7 @@ using System.Collections;
 public interface IPlayer
 {
     void DisablePlayer();
+    void Die();
 }
 
 public class PlayerControl : MonoBehaviour, IPlayer
@@ -140,5 +141,10 @@ public class PlayerControl : MonoBehaviour, IPlayer
     public void DisablePlayer()
     {
         enabled = false;
+    }
+
+    public void Die()
+    {
+        Destroy(this);
     }
 }

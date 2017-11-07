@@ -87,5 +87,11 @@ namespace Presentations.Game
             player.DisablePlayer();
             saveScore.Execute(score);
         }
+
+        public void OnPlayerFalls(IPlayer player)
+        {
+            player.Die();
+            saveScore.Execute(score);
+        }
     }
 }

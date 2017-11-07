@@ -65,5 +65,10 @@ namespace Presentations.Game
         {
             gamePresenter.OnPlayerEmptyHealth(playerHealth, player);
         }
+
+        public void OnPlayerFalls(IPlayer player)
+        {
+            gamePresenter.OnPlayerFalls(player);
+        }
     }
 }
