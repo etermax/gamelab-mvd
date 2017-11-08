@@ -7,9 +7,9 @@ namespace Presentations.Factory
     {
         public static GamePresenter GetGamePresenter(GameView gameView)
         {
-            return new GamePresenter(gameView, ActionsFactory.ProvideSaveScore(),
-                ActionsFactory.ProvideLoadScoreFromRepository(),
-                ActionsFactory.ProvideVerifiesHighScoreBeated());
+            return new GamePresenter(gameView, Provider.ProvideSaveScore(),
+                Provider.ProvideLoadScoreFromRepository(),
+                Provider.ProvideVerifiesHighScoreBeated());
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Infrastructure.Score.Repository
 {
-    public class PlayerPrefsRepository : StatsRepository
+    public class StatsPlayerPrefsRepository : StatsRepository
     {
         public void Put(PlayerScore score)
         {

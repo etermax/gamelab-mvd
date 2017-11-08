@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Domain.Factories
 {
-    public static partial class ActionsFactory
+    public static partial class Provider
     {
         static readonly Dictionary<Type, object> instances = new Dictionary<Type, object>();
 
@@ -17,7 +17,7 @@ namespace Core.Domain.Factories
             return Instanciate<T>(instanciator);
         }
 
-        static ActionsFactory()
+        static Provider()
         {
             
         }

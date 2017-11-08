@@ -4,7 +4,7 @@ using Core.Infrastructure.Score.Repository;
 
 namespace Core.Domain.Factories
 {
-    public static partial class ActionsFactory
+    public static partial class Provider
     {
         public static SaveScore ProvideSaveScore()
         {
@@ -19,7 +19,7 @@ namespace Core.Domain.Factories
 
         private static StatsRepository ProvideStateRepository()
         {
-            return GetOrInstanciate<StatsRepository>(() => new PlayerPrefsRepository());
+            return GetOrInstanciate<StatsRepository>(() => new StatsPlayerPrefsRepository());
         }
 
         public static VerifiesHighScoreBeated ProvideVerifiesHighScoreBeated()
