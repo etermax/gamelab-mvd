@@ -1,8 +1,8 @@
 ﻿using Core.Domain.Stats;
-using Presentations.Factory;
+using Presentation.Factory;
 using UnityEngine;
 
-namespace Presentations.Game
+namespace Presentation.Game
 {
     public interface GameView
     {

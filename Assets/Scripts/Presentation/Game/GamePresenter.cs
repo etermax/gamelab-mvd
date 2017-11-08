@@ -1,15 +1,18 @@
 ﻿using Core.Domain.Actions;
 
-namespace Presentations.Game
+namespace Presentation.Game
 {
     public class GamePresenter
     {
+        const int PointsByEnemy = 100;
+        
         readonly GameView gameView;
         readonly SaveScore saveScore;
         readonly LoadPreviousScore loadPreviousScore;
-        const int PointsByEnemy = 100;
-        int score;
         readonly VerifiesHighScoreBeated verifiesHighScoreBeated;
+        
+        int score;
+        
         private bool beated;
 
         public GamePresenter(GameView gameView,
