@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Linq;
-using DefaultNamespace;
+﻿using System.Linq;
+using Presentations.Game;
+using UnityEngine;
 
 public interface IEnemy
 {
