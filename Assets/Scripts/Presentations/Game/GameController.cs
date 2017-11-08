@@ -8,7 +8,6 @@ namespace Presentations.Game
     {
         void UpdateScore(int score);
         void UpdatePreviousScore(PlayerScore playerScore);
-        void ShowHighScoreBeatedMessage();
         void UpdateHighScore(int score);
     }
 
@@ -55,11 +54,6 @@ namespace Presentations.Game
         public void UpdatePreviousScore(PlayerScore playerScore)
         {
             scoreController.highestScore = playerScore.Score;
-        }
-
-        public void ShowHighScoreBeatedMessage()
-        {
-            //TODO: Implement me please!
         }
 
         public void UpdateHighScore(int score)

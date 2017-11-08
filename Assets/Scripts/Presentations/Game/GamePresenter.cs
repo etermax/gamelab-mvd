@@ -33,7 +33,6 @@ namespace Presentations.Game
             if (!beated && verifiesHighScoreBeated.Execute(score))
             {
                 beated = true;
-                gameView.ShowHighScoreBeatedMessage();
             }
         }
 
