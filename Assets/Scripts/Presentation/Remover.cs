@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using Presentations.Game;
+using Presentation.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Presentations
+namespace Presentation
 {
     public class Remover : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Presentations
+namespace Presentation
 {
     public class Score : MonoBehaviour
     {
