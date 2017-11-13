@@ -11,6 +11,7 @@ namespace Core.Domain.Actions
         StatsRepository statsRepository;
         VerifiesHighScoreBeated action;
         private bool result;
+        const int HigherScore = 40;
         const int SavedScore = 20;
         const int LowerScore = 10;
 
@@ -24,8 +25,21 @@ namespace Core.Domain.Actions
         public void WhenVerifiesHighScoreWithALowerScore()
         {
             GivenAVerifiesAction();
-            WhenVerifiesExecute();
+            WhenVerifiesExecuteWithScore(LowerScore);
             ThenScoreWasNotBeaten();
+        }
+        
+        [Test]
+        public void WhenVerifiesHighScoreWithAHigherScore()
+        {
+            GivenAVerifiesAction();
+            WhenVerifiesExecuteWithScore(HigherScore);
+            ThenScoreWasBeaten();
+        }
+
+        private void ThenScoreWasBeaten()
+        {
+            Assert.IsTrue(result);
         }
 
         private void ThenScoreWasNotBeaten()
@@ -33,10 +47,10 @@ namespace Core.Domain.Actions
             Assert.IsFalse(result);
         }
 
-        private void WhenVerifiesExecute()
+        private void WhenVerifiesExecuteWithScore(int score)
         {
             statsRepository.Get().Returns(new PlayerScore(SavedScore));
-            result = action.Execute(LowerScore);
+            result = action.Execute(score);
         }
 
         private void GivenAVerifiesAction()
