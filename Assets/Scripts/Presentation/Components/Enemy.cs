@@ -4,19 +4,20 @@ using UnityEngine;
 
 public interface IEnemy
 {
-	void Hurt();
+	void DecrementLife();
 	void Death();
 	void Flip();
-	int GetHealth();
-	void SetDamagedState();
+	int GetLife();
+	void RenderDamagedState();
 	bool IsStrongEnemy();
 	bool IsDeath();
+	void RenderDeath();
 }
 
 public class Enemy : MonoBehaviour, IEnemy
 {
 	public float moveSpeed = 2f;		// The speed the enemy moves at.
-	public int HP = 2;					// How many times the enemy can be hit before it dies.
+	public int Life = 2;					// How many times the enemy can be hit before it dies.
 	public Sprite deadEnemy;			// A sprite of the enemy when it's dead.
 	public Sprite damagedEnemy;			// An optional sprite of the enemy when it's damaged.
 	public AudioClip[] deathClips;		// An array of audioclips that can play when the enemy dies.
@@ -59,12 +60,12 @@ public class Enemy : MonoBehaviour, IEnemy
 			gameCotroller.OnEnemyHitsWithObstacle(this);
 	}
 
-	public void Hurt()
+	public void DecrementLife()
 	{
-		HP--;
+		Life--;
 	}
 
-	public void SetDamagedState()
+	public void RenderDamagedState()
 	{
 		ren.sprite = damagedEnemy;
 	}
@@ -81,9 +82,13 @@ public class Enemy : MonoBehaviour, IEnemy
 
 	public void Death()
 	{
+		dead = true;
+	}
+
+	public void RenderDeath()
+	{
 		DisableSpriteRenders();
 		SetDeathSprite();
-		dead = true;
 		MakeMeTriggerWithEverithing();
 		PlayADeathSound();
 		DrawPointsScore();
@@ -130,8 +135,8 @@ public class Enemy : MonoBehaviour, IEnemy
 		transform.localScale = enemyScale;
 	}
 
-	public int GetHealth()
+	public int GetLife()
 	{
-		return HP;
+		return Life;
 	}
 }

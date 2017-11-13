@@ -9,7 +9,8 @@ namespace Presentation.Factory
         {
             return new GamePresenter(gameView, Provider.ProvideSaveScore(),
                 Provider.ProvideLoadScoreFromRepository(),
-                Provider.ProvideVerifiesHighScoreBeated());
+                Provider.ProvideVerifiesHighScoreBeated(),
+                Provider.ProvideHurtEnemy());
         }
     }
 }

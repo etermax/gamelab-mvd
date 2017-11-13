@@ -27,5 +27,10 @@ namespace Core.Domain.Factories
             return GetOrInstanciate<VerifiesHighScoreBeated>(
                 () => new VerifiesHighScoreBeated(ProvideStateRepository()));
         }
+
+        public static HurtEnemy ProvideHurtEnemy()
+        {
+            return new HurtEnemy();
+        }
     }
 }

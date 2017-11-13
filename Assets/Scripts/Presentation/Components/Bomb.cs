@@ -32,7 +32,6 @@ public class Bomb : MonoBehaviour, IBomb
 
 	void Start ()
 	{
-		
 		// If the bomb has no parent, it has been laid by the player and should detonate.
 		if(transform.root == transform)
 			StartCoroutine(BombDetonation());
@@ -54,47 +53,59 @@ public class Bomb : MonoBehaviour, IBomb
 
 	public void Explode()
 	{
-		
-		// The player is now free to lay bombs when he has them.
-		layBombs.bombLaid = false;
-
-		// Make the pickup spawner start to deliver a new pickup.
+		LetPlayerLayBombs();
 		pickupSpawner.StartCoroutine(pickupSpawner.DeliverPickup());
+		KillEnenmiesCLoseToBomb();
+		DrawExplosion();
+		GetValuePlayExplosionFX();
+		Destroy (gameObject);
+	}
 
-		// Find all the colliders on the Enemies layer within the bombRadius.
-		Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, bombRadius, 1 << LayerMask.NameToLayer("Enemies"));
+	private void LetPlayerLayBombs()
+	{
+		layBombs.bombLaid = false;
+	}
 
-		// For each collider...
-		foreach(Collider2D en in enemies)
-		{
-			// Check if it has a rigidbody (since there is only one per enemy, on the parent).
-			Rigidbody2D rb = en.GetComponent<Rigidbody2D>();
-			if(rb != null && rb.tag == "Enemy")
-			{
-				// Find the Enemy script and set the enemy's health to zero.
-				rb.gameObject.GetComponent<Enemy>().HP = 0;
+	private void GetValuePlayExplosionFX()
+	{
+		AudioSource.PlayClipAtPoint(boom, transform.position);
+	}
 
-				// Find a vector from the bomb to the enemy.
-				Vector3 deltaPos = rb.transform.position - transform.position;
-
-				// Apply a force in this direction with a magnitude of bombForce.
-				Vector3 force = deltaPos.normalized * bombForce;
-				rb.AddForce(force);
-			}
-		}
-
-		// Set the explosion effect's position to the bomb's position and play the particle system.
+	private void DrawExplosion()
+	{
 		explosionFX.transform.position = transform.position;
 		explosionFX.Play();
+		Instantiate(explosion, transform.position, Quaternion.identity);
+	}
 
-		// Instantiate the explosion prefab.
-		Instantiate(explosion,transform.position, Quaternion.identity);
+	private void KillEnenmiesCLoseToBomb()
+	{
+		// Find all the colliders on the Enemies layer within the bombRadius.
+		var enemies = FindEnemiesOnTheRadio();
 
-		// Play the explosion sound effect.
-		AudioSource.PlayClipAtPoint(boom, transform.position);
+		// For each collider...
+		foreach (var en in enemies)
+		{
+			// Check if it has a rigidbody (since there is only one per enemy, on the parent).
+			var rigidBody = en.GetComponent<Rigidbody2D>();
+			if (rigidBody != null && rigidBody.CompareTag("Enemy"))
+			{
+				// Find the Enemy script and set the enemy's health to zero.
+				rigidBody.gameObject.GetComponent<Enemy>().Life = 0;
 
-		// Destroy the bomb.
-		Destroy (gameObject);
+				// Find a vector from the bomb to the enemy.
+				var deltaPos = rigidBody.transform.position - transform.position;
+
+				// Apply a force in this direction with a magnitude of bombForce.
+				var force = deltaPos.normalized * bombForce;
+				rigidBody.AddForce(force);
+			}
+		}
+	}
+
+	private Collider2D[] FindEnemiesOnTheRadio()
+	{
+		return Physics2D.OverlapCircleAll(transform.position, bombRadius, 1 << LayerMask.NameToLayer("Enemies"));
 	}
 }
 
