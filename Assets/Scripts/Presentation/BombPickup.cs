@@ -20,7 +20,7 @@ public class BombPickup : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		// If the player enters the trigger zone...
-		if(other.tag == "Player")
+		if(other.CompareTag("Player"))
 		{
 			// ... play the pickup sound effect.
 			AudioSource.PlayClipAtPoint(pickupClip, transform.position);
@@ -32,7 +32,7 @@ public class BombPickup : MonoBehaviour
 			Destroy(transform.root.gameObject);
 		}
 		// Otherwise if the crate lands on the ground...
-		else if(other.tag == "ground" && !landed)
+		else if(other.CompareTag("ground") && !landed)
 		{
 			// ... set the animator trigger parameter Land.
 			anim.SetTrigger("Land");

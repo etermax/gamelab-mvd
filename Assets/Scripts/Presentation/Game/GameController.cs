@@ -33,7 +33,7 @@ namespace Presentation.Game
 
         public void OnRocketImpactsBomb(Rocket rocket, Bomb bomb)
         {
-            gamePresenter.OnRocketImpactsHealtPack(rocket, bomb);
+            gamePresenter.OnRocketImpactsBomb(rocket, bomb);
         }
 
         public void OnRocketImpactsWithSomethingElse(Rocket rocket)

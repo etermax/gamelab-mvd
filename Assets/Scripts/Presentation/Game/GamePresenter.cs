@@ -4,12 +4,11 @@ namespace Presentation.Game
 {
     public class GamePresenter
     {
-        const int PointsByEnemy = 100;
-        
         readonly GameView gameView;
         readonly SaveScore saveScore;
         readonly LoadPreviousScore loadPreviousScore;
         readonly VerifiesHighScoreBeated verifiesHighScoreBeated;
+        readonly HurtEnemy hurtEnemy;
         
         int score;
         
@@ -18,12 +17,14 @@ namespace Presentation.Game
         public GamePresenter(GameView gameView,
             SaveScore saveScore,
             LoadPreviousScore loadPreviousScore,
-            VerifiesHighScoreBeated verifiesHighScoreBeated)
+            VerifiesHighScoreBeated verifiesHighScoreBeated, 
+            HurtEnemy hurtEnemy)
         {
             this.gameView = gameView;
             this.saveScore = saveScore;
             this.loadPreviousScore = loadPreviousScore;
             this.verifiesHighScoreBeated = verifiesHighScoreBeated;
+            this.hurtEnemy = hurtEnemy;
         }
 
         public void OnStart()
@@ -50,28 +51,24 @@ namespace Presentation.Game
 
         public void OnRocketImpactsEnemy(IRocket rocket, IEnemy enemy)
         {
-            enemy.Hurt();
-            if (enemy.IsStrongEnemy() && enemy.GetHealth() > 0)
-                enemy.SetDamagedState();
-            if (!enemy.IsDeath() && enemy.GetHealth() <= 0)
-            {
-                enemy.Death();
-                IncrementPoints(PointsByEnemy);
-            }
-
+            var points = hurtEnemy.Execute(enemy);
+            if (enemy.IsStrongEnemy() && enemy.GetLife() > 0)
+                enemy.RenderDamagedState();
+            if (enemy.IsDeath())
+                enemy.RenderDeath();                
+            IncrementPoints(points);
             rocket.Explode();
         }
 
-        private void IncrementPoints(int pointsByEnemy)
+        private void IncrementPoints(int points)
         {
-            score += pointsByEnemy;
+            score += points;
             VerifiesBeatHighScore();
             gameView.UpdateScore(score);
-            if (beated)
-                gameView.UpdateHighScore(score);
+            if (beated) gameView.UpdateHighScore(score);
         }
 
-        public void OnRocketImpactsHealtPack(IRocket rocket, IBomb bomb)
+        public void OnRocketImpactsBomb(IRocket rocket, IBomb bomb)
         {
             bomb.Explode();
             rocket.Explode();

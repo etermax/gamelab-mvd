@@ -15,7 +15,8 @@ namespace Presentation.Game
 		private VerifiesHighScoreBeated verifiesHighScoreBeated;
 		private StatsRepository statsRepository;
 		private IEnemy enemy;
-	
+		private HurtEnemy hurtEnemy;
+
 		[SetUp]
 		public void SetUp()
 		{
@@ -24,6 +25,7 @@ namespace Presentation.Game
 			saveScore = Substitute.For<SaveScore>(statsRepository);
 			loadPreviousScore = Substitute.For<LoadPreviousScore>(statsRepository);
 			verifiesHighScoreBeated = Substitute.For<VerifiesHighScoreBeated>(statsRepository);
+			hurtEnemy = Substitute.For<HurtEnemy>();
 			enemy = Substitute.For<IEnemy>();
 		}
 		
@@ -47,7 +49,7 @@ namespace Presentation.Game
 	
 		private void GivenAGamePresenter()
 		{
-			gamePresenter = new GamePresenter(gameView, saveScore, loadPreviousScore, verifiesHighScoreBeated);
+			gamePresenter = new GamePresenter(gameView, saveScore, loadPreviousScore, verifiesHighScoreBeated, hurtEnemy);
 		}
 	
 	}
