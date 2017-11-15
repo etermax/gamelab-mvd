@@ -20,8 +20,6 @@ namespace Presentation
             // If the player hits the trigger...
             if (collider.gameObject.CompareTag("Player"))
             {    
-                gameCotroller.OnPlayerFalls(collider.GetComponent<PlayerControl>());
-                
                 // .. stop the camera tracking the player
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
 
@@ -33,8 +31,7 @@ namespace Presentation
 
                 // ... instantiate the splash where the player falls in.
                 Instantiate(splash, collider.transform.position, transform.rotation);
-                // ... reload the level.
-                StartCoroutine("ReloadGame");
+                gameCotroller.OnPlayerFalls(collider.GetComponent<PlayerControl>());
             }
             else
             {
@@ -51,7 +48,6 @@ namespace Presentation
             // ... pause briefly
             yield return new WaitForSeconds(2);
             // ... and then reload the level.
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         }
     }
 }

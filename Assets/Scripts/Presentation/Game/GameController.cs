@@ -1,6 +1,8 @@
 ﻿using Core.Domain.Stats;
 using Presentation.Providers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Presentation.Game
 {
@@ -9,12 +11,16 @@ namespace Presentation.Game
         void UpdateScore(int score);
         void UpdatePreviousScore(PlayerScore playerScore);
         void UpdateHighScore(int score);
+        void ShowPopup();
+        void RestartGame();
+        void Stop();
     }
 
     public class GameController : MonoBehaviour, GameView
     {
         public Score scoreController;
         private GamePresenter gamePresenter;
+        public GameOverPopup GameOverPopup;
 
         private void Awake()
         {
@@ -59,6 +65,27 @@ namespace Presentation.Game
         public void UpdateHighScore(int score)
         {
             scoreController.highestScore = score;
+        }
+
+        public void ShowPopup()
+        {
+            GameOverPopup.ContinueButton.onClick.AddListener(ConfirmAction);
+            GameOverPopup.gameObject.SetActive(true);
+        }
+
+        private void ConfirmAction()
+        {
+            gamePresenter.OnRestartConfirmed();
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        }
+
+        public void Stop()
+        {
+            Time.timeScale = 0;
         }
 
         public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)
