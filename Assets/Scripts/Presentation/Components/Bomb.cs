@@ -97,7 +97,8 @@ public class Bomb : MonoBehaviour, IBomb
 			if (rigidBody != null && rigidBody.CompareTag("Enemy"))
 			{
 				// Find the Enemy script and set the enemy's health to zero.
-				rigidBody.gameObject.GetComponent<Enemy>().Life = 0;
+				var enemy = rigidBody.gameObject.GetComponent<Enemy>();
+				enemy.Kill();
 
 				// Find a vector from the bomb to the enemy.
 				var deltaPos = rigidBody.transform.position - transform.position;
@@ -105,6 +106,8 @@ public class Bomb : MonoBehaviour, IBomb
 				// Apply a force in this direction with a magnitude of bombForce.
 				var force = deltaPos.normalized * bombForce;
 				rigidBody.AddForce(force);
+				if (enemy.IsDeath())
+					enemy.RenderDeath();
 			}
 		}
 	}
