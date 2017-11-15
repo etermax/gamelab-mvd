@@ -1752,6 +1752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 335855069}
+  GameOverPopup: {fileID: 316625424}
 --- !u!4 &1934301689
 Transform:
   m_ObjectHideFlags: 0
