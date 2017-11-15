@@ -49,7 +49,7 @@ namespace Presentation.Game
 	
 		private void GivenAGamePresenter()
 		{
-			gamePresenter = new GamePresenter(gameView, saveScore, loadPreviousScore, verifiesHighScoreBeated, hurtEnemy);
+			gamePresenter = new GamePresenter(gameView, saveScore, loadPreviousScore, verifiesHighScoreBeated, hurtEnemy, null, null);
 		}
 	
 	}

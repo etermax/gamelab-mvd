@@ -24,9 +24,10 @@ namespace Presentation
                 GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
 
                 // .. stop the Health Bar following the player
-                if (GameObject.FindGameObjectWithTag("HealthBar").activeSelf)
+                var healtBar = GameObject.FindGameObjectWithTag("HealthBar");
+                if (healtBar != null && healtBar.activeSelf)
                 {
-                    GameObject.FindGameObjectWithTag("HealthBar").SetActive(false);
+                    healtBar.SetActive(false);
                 }
 
                 // ... instantiate the splash where the player falls in.

@@ -27,5 +27,15 @@ namespace Core.Domain.Providers
         {
             return new HurtEnemy();
         }
+
+        public static CanLayBomb ProvideCanLayBomb()
+        {
+            return new CanLayBomb();
+        }
+
+        public static LayBomb ProvideLayBomb()
+        {
+            return new LayBomb();
+        }
     }
 }

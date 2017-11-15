@@ -10,7 +10,9 @@ namespace Presentation.Providers
             return new GamePresenter(gameView, ActionsProvider.ProvideSaveScore(),
                 ActionsProvider.ProvideLoadScoreFromRepository(),
                 ActionsProvider.ProvideVerifiesHighScoreBeated(),
-                ActionsProvider.ProvideHurtEnemy());
+                ActionsProvider.ProvideHurtEnemy(),
+                ActionsProvider.ProvideCanLayBomb(),
+                ActionsProvider.ProvideLayBomb());
         }
     }
 }
