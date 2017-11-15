@@ -4,6 +4,7 @@ using System.Collections;
 public interface IBomb
 {
 	void Explode();
+	Vector3 GetPosition();
 }
 
 public class Bomb : MonoBehaviour, IBomb
@@ -59,6 +60,11 @@ public class Bomb : MonoBehaviour, IBomb
 		DrawExplosion();
 		GetValuePlayExplosionFX();
 		Destroy (gameObject);
+	}
+
+	public Vector3 GetPosition()
+	{
+		return transform.position;
 	}
 
 	private void LetPlayerLayBombs()

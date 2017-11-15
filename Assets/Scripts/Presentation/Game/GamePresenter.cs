@@ -9,7 +9,6 @@ namespace Presentation.Game
         readonly LoadPreviousScore loadPreviousScore;
         readonly VerifiesHighScoreBeated verifiesHighScoreBeated;
         readonly HurtEnemy hurtEnemy;
-        
         int score;
         
         private bool beated;

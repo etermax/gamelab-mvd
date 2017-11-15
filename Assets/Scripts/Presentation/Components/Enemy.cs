@@ -12,6 +12,7 @@ public interface IEnemy
 	bool IsStrongEnemy();
 	bool IsDeath();
 	void RenderDeath();
+	void Kill();
 }
 
 public class Enemy : MonoBehaviour, IEnemy
@@ -92,6 +93,12 @@ public class Enemy : MonoBehaviour, IEnemy
 		MakeMeTriggerWithEverithing();
 		PlayADeathSound();
 		DrawPointsScore();
+	}
+
+	public void Kill()
+	{
+		Life = 0;
+		dead = true;
 	}
 
 	private void DrawPointsScore()

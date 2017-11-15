@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Domain.Factories
+namespace Core.Domain.Providers
 {
-    public static partial class Provider
+    public static class Provider
     {
         static readonly Dictionary<Type, object> instances = new Dictionary<Type, object>();
 
@@ -15,11 +15,6 @@ namespace Core.Domain.Factories
             if (singletonObj != nullValue)
                 return (T) singletonObj;
             return Instanciate<T>(instanciator);
-        }
-
-        static Provider()
-        {
-            
         }
 
         private static T Get<T>()

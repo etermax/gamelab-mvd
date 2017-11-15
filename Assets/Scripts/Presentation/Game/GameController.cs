@@ -1,5 +1,5 @@
 ﻿using Core.Domain.Stats;
-using Presentation.Factory;
+using Presentation.Providers;
 using UnityEngine;
 
 namespace Presentation.Game
@@ -18,7 +18,7 @@ namespace Presentation.Game
 
         private void Awake()
         {
-            gamePresenter = GameViewFactory.GetGamePresenter(this);
+            gamePresenter = GameViewProvider.ProviderGamePresenter(this);
         }
 
         private void Start()
