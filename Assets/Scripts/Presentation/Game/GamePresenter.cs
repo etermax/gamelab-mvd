@@ -94,6 +94,13 @@ namespace Presentation.Game
         {
             player.Die();
             saveScore.Execute(score);
+            gameView.Stop();
+            gameView.ShowPopup();
+        }
+
+        public void OnRestartConfirmed()
+        {
+            gameView.RestartGame();
         }
     }
 }
