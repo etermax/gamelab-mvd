@@ -2,7 +2,6 @@
 using Presentation.Providers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Presentation.Game
 {
@@ -14,13 +13,22 @@ namespace Presentation.Game
         void ShowPopup();
         void RestartGame();
         void Stop();
+        Vector3 GetPlayerPosition();
+        void LeaveBombAt(Vector3 playerPosition);
+        void ShowBombOnHud();
+        void HideBombFromHud();
     }
 
     public class GameController : MonoBehaviour, GameView
     {
-        public Score scoreController;
-        private GamePresenter gamePresenter;
+        public Score ScoreController;
         public GameOverPopup GameOverPopup;
+        public GUITexture BombHUD;
+        public AudioClip BombsAway;
+        public GameObject BombPrfab;
+        public GameObject Hero;
+        
+        private GamePresenter gamePresenter;
 
         private void Awake()
         {
@@ -54,17 +62,17 @@ namespace Presentation.Game
 
         public void UpdateScore(int score)
         {
-            scoreController.score = score;
+            ScoreController.score = score;
         }
 
         public void UpdatePreviousScore(PlayerScore playerScore)
         {
-            scoreController.highestScore = playerScore.Score;
+            ScoreController.highestScore = playerScore.Score;
         }
 
         public void UpdateHighScore(int score)
         {
-            scoreController.highestScore = score;
+            ScoreController.highestScore = score;
         }
 
         public void ShowPopup()
@@ -88,6 +96,26 @@ namespace Presentation.Game
             Time.timeScale = 0;
         }
 
+        public Vector3 GetPlayerPosition()
+        {
+            return Hero.transform.position;
+        }
+
+        public void LeaveBombAt(Vector3 playerPosition)
+        {
+            Instantiate(BombPrfab, playerPosition, transform.rotation);
+        }
+
+        public void ShowBombOnHud()
+        {
+            BombHUD.enabled = true;
+        }
+        
+        public void HideBombFromHud()
+        {
+            BombHUD.enabled = false;
+        }
+
         public void OnPlayerEmptyHealth(IPlayerHealth playerHealth, IPlayer player)
         {
             gamePresenter.OnPlayerEmptyHealth(playerHealth, player);
@@ -96,6 +124,21 @@ namespace Presentation.Game
         public void OnPlayerFalls(IPlayer player)
         {
             gamePresenter.OnPlayerFalls(player);
+        }
+
+        public void OnButton2Pressed()
+        {
+            gamePresenter.OnButton2Pressed();
+        }
+
+        public void OnBombPickedUp()
+        {
+            gamePresenter.OnBombPickedUp();
+        }
+
+        public void OnBombExplode()
+        {
+            gamePresenter.OnBombExplode();
         }
     }
 }

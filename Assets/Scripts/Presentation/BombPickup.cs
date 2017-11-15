@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Presentation.Game;
 
 public class BombPickup : MonoBehaviour
 {
@@ -8,12 +9,13 @@ public class BombPickup : MonoBehaviour
 
 	private Animator anim;				// Reference to the animator component.
 	private bool landed = false;		// Whether or not the crate has landed yet.
-
+	private GameController gameCotroller;
 
 	void Awake()
 	{
 		// Setting up the reference.
 		anim = transform.root.GetComponent<Animator>();
+		gameCotroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 	}
 
 
@@ -25,8 +27,7 @@ public class BombPickup : MonoBehaviour
 			// ... play the pickup sound effect.
 			AudioSource.PlayClipAtPoint(pickupClip, transform.position);
 
-			// Increase the number of bombs the player has.
-			other.GetComponent<LayBombs>().bombCount++;
+			gameCotroller.OnBombPickedUp();
 
 			// Destroy the crate.
 			Destroy(transform.root.gameObject);

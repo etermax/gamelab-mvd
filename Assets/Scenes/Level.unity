@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &316625421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1120,6 +1120,10 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!1 &985274551 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100020, guid: 6aa187bc6339843479c03fdfd71404a3, type: 2}
+  m_PrefabInternal: {fileID: 1744304060}
 --- !u!1 &1023255436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1023255437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1274,6 +1278,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: bdd88e3de6e024ec1bacd58073808d06, type: 2}
   m_PrefabInternal: {fileID: 1830797955}
+--- !u!131 &1576215470 stripped
+GUITexture:
+  m_PrefabParentObject: {fileID: 13100000, guid: bc17612bc816d4f859110958e22d0a82,
+    type: 2}
+  m_PrefabInternal: {fileID: 980559993}
 --- !u!1001 &1621436878
 Prefab:
   m_ObjectHideFlags: 0
@@ -1733,6 +1742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1934301689}
   - component: {fileID: 1934301688}
+  - component: {fileID: 1934301690}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1751,8 +1761,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff3b999f4b467f9f09594e932665db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 335855069}
+  ScoreController: {fileID: 335855069}
   GameOverPopup: {fileID: 316625424}
+  BombHUD: {fileID: 1576215470}
+  BombsAway: {fileID: 8300000, guid: 2d487c0108565443ba2dea29b521e120, type: 3}
+  BombPrfab: {fileID: 100000, guid: 9f1c955688b614b259cf703b0b1c73d2, type: 2}
+  Hero: {fileID: 985274551}
 --- !u!4 &1934301689
 Transform:
   m_ObjectHideFlags: 0
@@ -1766,6 +1780,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1934301690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1934301687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d15e7fa8708e46718030db4a2d09c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1953125101
 GameObject:
   m_ObjectHideFlags: 0

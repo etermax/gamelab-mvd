@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Presentation.Game;
 
 public interface IBomb
 {
@@ -20,11 +21,13 @@ public class Bomb : MonoBehaviour, IBomb
 	private LayBombs layBombs;				// Reference to the player's LayBombs script.
 	private PickupSpawner pickupSpawner;	// Reference to the PickupSpawner script.
 	private ParticleSystem explosionFX;		// Reference to the particle system of the explosion effect.
+	private GameController gameCotroller;
 
 
 	void Awake ()
 	{
 		// Setting up references.
+		gameCotroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 		explosionFX = GameObject.FindGameObjectWithTag("ExplosionFX").GetComponent<ParticleSystem>();
 		pickupSpawner = GameObject.Find("pickupManager").GetComponent<PickupSpawner>();
 		if(GameObject.FindGameObjectWithTag("Player"))
@@ -69,7 +72,7 @@ public class Bomb : MonoBehaviour, IBomb
 
 	private void LetPlayerLayBombs()
 	{
-		layBombs.bombLaid = false;
+		gameCotroller.OnBombExplode();
 	}
 
 	private void GetValuePlayExplosionFX()

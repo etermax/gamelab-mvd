@@ -19,7 +19,7 @@ namespace Presentation
         {
             // Set the score text.
             GetComponent<GUIText>().text = "Score: " + score +
-                                           (highestScore > 0 ? " (Max: " + highestScore + ")" : "");
+                                           (highestScore > 0 ? " (High: " + highestScore + ")" : "");
             
             // If the score has changed...
             if (previousScore != score)
