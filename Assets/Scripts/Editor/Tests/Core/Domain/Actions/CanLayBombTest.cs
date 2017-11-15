@@ -3,77 +3,80 @@ using Presentation.Game;
 
 namespace Core.Domain.Actions
 {
-    [TestFixture, System.ComponentModel.Category("Actions")]
+    [TestFixture, Category("Actions")]
     public class CanLayBombTest
     {
-        private CanLayBomb canLayBomb;
-        private PlayerStats stats;
+        CanLayBomb action;
+        PlayerStats prefs;
+        bool canLayBomb;
 
         [Test]
-        public void UserHasBombAndDidNotLayedBomb()
+        public void UserCanLayBombWhenHasBombsAndNoBombHasBeenLayed()
         {
             GivenACanLayBomb();
-            GivenAStateWithBombAndNotLayedBomb();
-            UserCanLayBombWhenItTry();
-        }
-        
-        [Test]
-        public void UserHasBombAndDidLayedBomb()
-        {
-            GivenACanLayBomb();
-            GivenAStateWithBombAndLayedBomb();
-            UserCantLayBombWhenItTry();
-        }
-        
-        [Test]
-        public void UserHasNotBombAndDidLayedBomb()
-        {
-            GivenACanLayBomb();
-            GivenAStateWithoutBombAndNotLayedBomb();
-            UserCantLayBombWhenItTry();
-        }
-        
-
-        private void UserCanLayBombWhenItTry()
-        {
-            Assert.IsTrue(canLayBomb.Execute(stats));
-        }
-        
-        private void UserCantLayBombWhenItTry()
-        {
-            Assert.IsFalse(canLayBomb.Execute(stats));
+            WhenUserHasBombsAndNoBombsHasBeenLayed();
+            ThenBombCanBeLayed();
         }
 
-        private void GivenAStateWithBombAndNotLayedBomb()
+        [Test]
+        public void UserCanNotLayABombWhenHasBombsAndABombHasBeenLayed()
         {
-            stats = new PlayerStats
-            {
-                BombLayed = false,
-                Bombs = 1
-            };
+            GivenACanLayBomb();
+            WhenUserHasBombsAndABombHasBeenLayed();
+            ThenBombCanNotBeLayed();
         }
-        
-        private void GivenAStateWithBombAndLayedBomb()
+
+        [Test]
+        public void UserCanNotLayABombWhenDoesNotHaveOne()
         {
-            stats = new PlayerStats
-            {
-                BombLayed = true,
-                Bombs = 1
-            };
+            GivenACanLayBomb();
+            WhenUserDoesNotHaveABomb();
+            ThenBombCanNotBeLayed();
         }
-        
-        private void GivenAStateWithoutBombAndNotLayedBomb()
+
+        private void WhenUserDoesNotHaveABomb()
         {
-            stats = new PlayerStats
+            prefs = new PlayerStats
             {
                 BombLayed = false,
                 Bombs = 0
             };
+            canLayBomb = action.Execute(prefs);
+        }
+
+        private void ThenBombCanNotBeLayed()
+        {
+            Assert.IsFalse(canLayBomb);
+        }
+
+        private void WhenUserHasBombsAndABombHasBeenLayed()
+        {
+            prefs = new PlayerStats
+            {
+                BombLayed = true,
+                Bombs = 1
+            };
+            canLayBomb = action.Execute(prefs);
+        }
+
+        private void ThenBombCanBeLayed()
+        {
+            Assert.IsTrue(canLayBomb);
+        }
+
+        private void WhenUserHasBombsAndNoBombsHasBeenLayed()
+        {
+            prefs = new PlayerStats
+            {
+                BombLayed = false,
+                Bombs = 1
+            };
+            canLayBomb = action.Execute(prefs);
         }
 
         private void GivenACanLayBomb()
         {
-            canLayBomb = new CanLayBomb();
+            action = new CanLayBomb();
         }
     }
 }
